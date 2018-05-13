@@ -31,14 +31,16 @@ import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+    //AppCompatActivity used for action bar features in
+    //Android Support Library
     private static String TAG = "MainActivity";
-    private ViewPager viewPager;
-    private TabLayout tabLayout = null;
-    public static String STR_FRIEND_FRAGMENT = "FRIEND";
-    public static String STR_GROUP_FRAGMENT = "GROUP";
-    public static String STR_INFO_FRAGMENT = "INFO";
+    private ViewPager viewPager;//Allows swiping right and left between tabs
+    private TabLayout tabLayout = null;//Horizontal layout for tabs
+    public static String STR_FRIEND_FRAGMENT = "FRIEND";//Name of first tab
+    public static String STR_GROUP_FRAGMENT = "GROUP";//Name of second tab
+    public static String STR_INFO_FRAGMENT = "INFO";//Name of third tab
 
-    private FloatingActionButton floatButton;
+    private FloatingActionButton floatButton;//Float button in bottom-right
     private ViewPagerAdapter adapter;
 
     private FirebaseAuth mAuth;
