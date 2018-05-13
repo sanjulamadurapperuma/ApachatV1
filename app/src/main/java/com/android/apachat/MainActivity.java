@@ -50,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if(toolbar != null) {
-            setSupportActionBar(toolbar);
+        Toolbar topToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if(topToolbar != null) {
+            setSupportActionBar(topToolbar);
             Objects.requireNonNull(getSupportActionBar()).setTitle("Apachat");
         }
 
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFirebase() {
-        //Khoi tao thanh phan de dang nhap, dang ky
+        //Initialising Firebase Authentication (Email only)
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
     }
@@ -105,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Khoi tao 3 tab
+     * 3 tabs on the screen
      */
     private void initTab() {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -123,9 +122,9 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.ic_tab_infor
         };
 
-        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+        Objects.requireNonNull(tabLayout.getTabAt(0)).setIcon(tabIcons[0]);
+        Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(tabIcons[1]);
+        Objects.requireNonNull(tabLayout.getTabAt(2)).setIcon(tabIcons[2]);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -165,21 +164,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == REQUEST_CODE_LOGIN && resultCode == RESULT_OK) {
-//            if (data.getStringExtra(STR_EXTRA_ACTION).equals(LoginActivity.STR_EXTRA_ACTION_LOGIN)) {
-//                authUtils.signIn(data.getStringExtra(STR_EXTRA_USERNAME), data.getStringExtra(STR_EXTRA_PASSWORD));
-//            } else if (data.getStringExtra(STR_EXTRA_ACTION).equals(RegisterActivity.STR_EXTRA_ACTION_REGISTER)) {
-//                authUtils.createUser(data.getStringExtra(STR_EXTRA_USERNAME), data.getStringExtra(STR_EXTRA_PASSWORD));
-//            }else if(data.getStringExtra(STR_EXTRA_ACTION).equals(LoginActivity.STR_EXTRA_ACTION_RESET)){
-//                authUtils.resetPassword(data.getStringExtra(STR_EXTRA_USERNAME));
-//            }
-//        } else if (resultCode == RESULT_CANCELED) {
-//            this.finish();
-//        }
-//    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
