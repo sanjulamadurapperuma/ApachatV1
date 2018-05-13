@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "917668851809",
+    "firebase_url": "https://advanced-chat-app.firebaseio.com",
+    "project_id": "advanced-chat-app",
+    "storage_bucket": "advanced-chat-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917668851809:android:bc918c0b70aa7b6f",
+        "android_client_info": {
+          "package_name": "com.android.apachat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "917668851809-9g7u8hb9st5ttavlmg4sfj4nabf3jue3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.apachat",
+            "certificate_hash": "fe45a87f4e2b0570927715a812ae51748e2c043a"
+          }
+        },
+        {
+          "client_id": "917668851809-aedlskah9hooep8hc4dnloolgmttiela.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBge3UDtn0u1vBKRkS2MH6dWdx2BIBNo_I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "917668851809-aedlskah9hooep8hc4dnloolgmttiela.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
