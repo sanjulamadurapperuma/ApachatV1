@@ -73,8 +73,8 @@ public class GroupFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         View layout = inflater.inflate(R.layout.fragment_group, container, false);
 
         listGroup = GroupDB.getInstance(getContext()).getListGroups();
-        recyclerListGroups = (RecyclerView) layout.findViewById(R.id.recycleListGroup);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.swipeRefreshLayout);
+        recyclerListGroups = layout.findViewById(R.id.recycleListGroup);
+        mSwipeRefreshLayout = layout.findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerListGroups.setLayoutManager(layoutManager);

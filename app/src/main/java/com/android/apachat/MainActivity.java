@@ -50,14 +50,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar topToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar topToolbar = findViewById(R.id.toolbar);
         if(topToolbar != null) {
             setSupportActionBar(topToolbar);
             Objects.requireNonNull(getSupportActionBar()).setTitle("Apachat");
         }
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        floatButton = (FloatingActionButton) findViewById(R.id.fab);
+        viewPager = findViewById(R.id.viewpager);
+        floatButton = findViewById(R.id.fab);
         initTab();
         initFirebase();
     }
