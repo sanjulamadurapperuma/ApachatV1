@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
      * 3 tabs on the screen
      */
     private void initTab() {
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorIndivateTab));
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
@@ -135,25 +135,30 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFrag(new FriendsFragment(), STR_FRIEND_FRAGMENT);
         adapter.addFrag(new GroupFragment(), STR_GROUP_FRAGMENT);
         adapter.addFrag(new UserProfileFragment(), STR_INFO_FRAGMENT);
-        floatButton.setOnClickListener(((FriendsFragment) adapter.getItem(0)).onClickFloatButton.getInstance(this));
+        floatButton.setOnClickListener(((FriendsFragment) adapter.getItem(0))
+                .onClickFloatButton.getInstance(this));
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
 
             }
 
             @Override
             public void onPageSelected(int position) {
-                ServiceUtils.stopServiceFriendChat(MainActivity.this.getApplicationContext(), false);
+                ServiceUtils.stopServiceFriendChat(MainActivity.this
+                        .getApplicationContext(), false);
                 if (adapter.getItem(position) instanceof FriendsFragment) {
                     floatButton.setVisibility(View.VISIBLE);
-                    floatButton.setOnClickListener(((FriendsFragment) adapter.getItem(position)).onClickFloatButton.getInstance(MainActivity.this));
+                    floatButton.setOnClickListener(((FriendsFragment) adapter
+                            .getItem(position)).onClickFloatButton.getInstance(MainActivity.this));
                     floatButton.setImageResource(R.drawable.plus);
                 } else if (adapter.getItem(position) instanceof GroupFragment) {
                     floatButton.setVisibility(View.VISIBLE);
-                    floatButton.setOnClickListener(((GroupFragment) adapter.getItem(position)).onClickFloatButton.getInstance(MainActivity.this));
+                    floatButton.setOnClickListener(((GroupFragment) adapter.getItem(position))
+                            .onClickFloatButton.getInstance(MainActivity.this));
                     floatButton.setImageResource(R.drawable.ic_float_add_group);
                 } else {
                     floatButton.setVisibility(View.GONE);
@@ -181,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //This is for the About menu item in the top-right hand corner
         //noinspection SimplifiableIfStatement
         if (id == R.id.about) {
                 Toast.makeText(this, "Apachat version 1.0", Toast.LENGTH_LONG).show();
@@ -191,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Adapter hien thi tab
+     * ViewPageAdapter for Fragment
      */
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
