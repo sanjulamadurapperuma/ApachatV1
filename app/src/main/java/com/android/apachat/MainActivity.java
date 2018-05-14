@@ -41,14 +41,15 @@ public class MainActivity extends AppCompatActivity {
     public static String STR_INFO_FRAGMENT = "INFO";//Name of third tab
 
     private FloatingActionButton floatButton;//Float button in bottom-right
-    private ViewPagerAdapter adapter;
+    private ViewPagerAdapter adapter;//Managing page views
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseUser user;
+    private FirebaseAuth mAuth;//extends object implements internalTokenProvider
+    private FirebaseAuth.AuthStateListener mAuthListener;//Listener for change in authentication states
+    private FirebaseUser user;//User of current instance
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Initializing the main activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
