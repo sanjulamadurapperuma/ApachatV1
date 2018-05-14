@@ -39,8 +39,8 @@ public class GroupDB {
         values.put(FeedEntry.COLUMN_GROUP_NAME, group.groupInfo.get("name"));
         values.put(FeedEntry.COLUMN_GROUP_ADMIN, group.groupInfo.get("admin"));
 
-        for (String idMenber : group.member) {
-            values.put(FeedEntry.COLUMN_GROUP_MEMBER, idMenber);
+        for (String idMember : group.member) {
+            values.put(FeedEntry.COLUMN_GROUP_MEMBER, idMember);
             // Insert the new row, returning the primary key value of the new row
             db.insert(FeedEntry.TABLE_NAME, null, values);
         }
@@ -48,7 +48,8 @@ public class GroupDB {
 
     public void deleteGroup(String idGroup){
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.delete(FeedEntry.TABLE_NAME, FeedEntry.COLUMN_GROUP_ID + " = " + idGroup , null);
+        db.delete(FeedEntry.TABLE_NAME, FeedEntry.COLUMN_GROUP_ID +
+                " = " + idGroup , null);
     }
 
 
@@ -60,7 +61,8 @@ public class GroupDB {
 
     public Group getGroup(String id){
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from " + GroupDB.FeedEntry.TABLE_NAME + " where " + FeedEntry.COLUMN_GROUP_ID +" = " + id, null);
+        Cursor cursor = db.rawQuery("select * from " + GroupDB.FeedEntry.TABLE_NAME +
+                " where " + FeedEntry.COLUMN_GROUP_ID +" = " + id, null);
         Group newGroup = new Group();
         while (cursor.moveToNext()) {
             String idGroup = cursor.getString(0);
@@ -82,7 +84,8 @@ public class GroupDB {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         try {
-            Cursor cursor = db.rawQuery("select * from " + GroupDB.FeedEntry.TABLE_NAME, null);
+            Cursor cursor = db.rawQuery("select * from " + GroupDB.FeedEntry
+                    .TABLE_NAME, null);
             while (cursor.moveToNext()) {
                 String idGroup = cursor.getString(0);
                 String nameGroup = cursor.getString(1);

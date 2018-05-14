@@ -405,7 +405,7 @@ class ListGroupsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 ChatActivity.bitmapAvataFriend = new HashMap<>();
                 for(String id : listGroup.get(position).member) {
                     idFriend.add(id);
-                    String avata = listFriend.getAvataById(id);
+                    String avata = listFriend.getAvatarById(id);
                     if(!avata.equals(StaticConfig.STR_DEFAULT_BASE64)) {
                         byte[] decodedString = Base64.decode(avata, Base64.DEFAULT);
                         ChatActivity.bitmapAvataFriend.put(id, BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));

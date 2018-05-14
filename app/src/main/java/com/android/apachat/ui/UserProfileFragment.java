@@ -98,7 +98,7 @@ public class UserProfileFragment extends Fragment {
                 tvUserName.setText(myAccount.name);
             }
 
-            setImageAvatar(context, myAccount.avata);
+            setImageAvatar(context, myAccount.avatar);
             SharedPreferenceHelper preferenceHelper = SharedPreferenceHelper.getInstance(context);
             preferenceHelper.saveUserInfo(myAccount);
         }
@@ -127,7 +127,7 @@ public class UserProfileFragment extends Fragment {
         SharedPreferenceHelper prefHelper = SharedPreferenceHelper.getInstance(context);
         myAccount = prefHelper.getUserInfo();
         setupArrayListInfo(myAccount);
-        setImageAvatar(context, myAccount.avata);
+        setImageAvatar(context, myAccount.avatar);
         tvUserName.setText(myAccount.name);
 
         recyclerView = (RecyclerView)view.findViewById(R.id.info_recycler_view);
@@ -189,7 +189,7 @@ public class UserProfileFragment extends Fragment {
                         ImageUtils.AVATAR_WIDTH, ImageUtils.AVATAR_HEIGHT);
 
                 String imageBase64 = ImageUtils.encodeBase64(liteImage);
-                myAccount.avata = imageBase64;
+                myAccount.avatar = imageBase64;
 
                 waitingDialog.setCancelable(false)
                         .setTitle("Avatar updating....")
