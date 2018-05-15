@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.android.apachat.R;
 import com.android.apachat.data.SharedPreferenceHelper;
 import com.android.apachat.data.StaticConfig;
-import com.android.apachat.model.Conversation;
+import com.android.apachat.model.Consersation;
 import com.android.apachat.model.Message;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private ListMessageAdapter adapter;
     private String roomId;
     private ArrayList<CharSequence> idFriend;
-    private Conversation conversation;
+    private Consersation consersation;
     private ImageButton btnSend;
     private EditText editWriteMessage;
     private LinearLayoutManager linearLayoutManager;
@@ -59,7 +59,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         roomId = intentData.getStringExtra(StaticConfig.INTENT_KEY_CHAT_ROOM_ID);
         String nameFriend = intentData.getStringExtra(StaticConfig.INTENT_KEY_CHAT_FRIEND);
 
-        conversation = new Conversation();
+        consersation = new Consersation();
         btnSend = (ImageButton) findViewById(R.id.btnSend);
         btnSend.setOnClickListener(this);
 
@@ -77,7 +77,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recyclerChat = (RecyclerView) findViewById(R.id.recyclerChat);
             recyclerChat.setLayoutManager(linearLayoutManager);
-            adapter = new ListMessageAdapter(this, conversation, bitmapAvataFriend, bitmapAvataUser);
+            adapter = new ListMessageAdapter(this, consersation, bitmapAvataFriend, bitmapAvataUser);
             FirebaseDatabase.getInstance().getReference().child("message/" + roomId).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -88,9 +88,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         newMessage.idReceiver = (String) mapMessage.get("idReceiver");
                         newMessage.text = (String) mapMessage.get("text");
                         newMessage.timestamp = (long) mapMessage.get("timestamp");
-                        conversation.getListMessageData().add(newMessage);
+                        consersation.getListMessageData().add(newMessage);
                         adapter.notifyDataSetChanged();
-                        linearLayoutManager.scrollToPosition(conversation.getListMessageData().size() - 1);
+                        linearLayoutManager.scrollToPosition(consersation.getListMessageData().size() - 1);
                     }
                 }
 
@@ -157,14 +157,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private Conversation conversation;
+    private Consersation consersation;
     private HashMap<String, Bitmap> bitmapAvata;
     private HashMap<String, DatabaseReference> bitmapAvataDB;
     private Bitmap bitmapAvataUser;
 
-    public ListMessageAdapter(Context context, Conversation conversation, HashMap<String, Bitmap> bitmapAvata, Bitmap bitmapAvataUser) {
+    public ListMessageAdapter(Context context, Consersation consersation, HashMap<String, Bitmap> bitmapAvata, Bitmap bitmapAvataUser) {
         this.context = context;
-        this.conversation = conversation;
+        this.consersation = consersation;
         this.bitmapAvata = bitmapAvata;
         this.bitmapAvataUser = bitmapAvataUser;
         bitmapAvataDB = new HashMap<>();
@@ -185,12 +185,12 @@ class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemMessageFriendHolder) {
-            ((ItemMessageFriendHolder) holder).txtContent.setText(conversation.getListMessageData().get(position).text);
-            Bitmap currentAvata = bitmapAvata.get(conversation.getListMessageData().get(position).idSender);
+            ((ItemMessageFriendHolder) holder).txtContent.setText(consersation.getListMessageData().get(position).text);
+            Bitmap currentAvata = bitmapAvata.get(consersation.getListMessageData().get(position).idSender);
             if (currentAvata != null) {
                 ((ItemMessageFriendHolder) holder).avata.setImageBitmap(currentAvata);
             } else {
-                final String id = conversation.getListMessageData().get(position).idSender;
+                final String id = consersation.getListMessageData().get(position).idSender;
                 if(bitmapAvataDB.get(id) == null){
                     bitmapAvataDB.put(id, FirebaseDatabase.getInstance().getReference().child("user/" + id + "/avata"));
                     bitmapAvataDB.get(id).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -216,7 +216,7 @@ class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             }
         } else if (holder instanceof ItemMessageUserHolder) {
-            ((ItemMessageUserHolder) holder).txtContent.setText(conversation.getListMessageData().get(position).text);
+            ((ItemMessageUserHolder) holder).txtContent.setText(consersation.getListMessageData().get(position).text);
             if (bitmapAvataUser != null) {
                 ((ItemMessageUserHolder) holder).avata.setImageBitmap(bitmapAvataUser);
             }
@@ -225,12 +225,12 @@ class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return conversation.getListMessageData().get(position).idSender.equals(StaticConfig.UID) ? ChatActivity.VIEW_TYPE_USER_MESSAGE : ChatActivity.VIEW_TYPE_FRIEND_MESSAGE;
+        return consersation.getListMessageData().get(position).idSender.equals(StaticConfig.UID) ? ChatActivity.VIEW_TYPE_USER_MESSAGE : ChatActivity.VIEW_TYPE_FRIEND_MESSAGE;
     }
 
     @Override
     public int getItemCount() {
-        return conversation.getListMessageData().size();
+        return consersation.getListMessageData().size();
     }
 }
 
