@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 
 
-public class Conversation {
+public class Consersation {
     private ArrayList<Message> listMessageData;
-    public Conversation(){
+    public Consersation(){
         listMessageData = new ArrayList<>();
     }
 
