@@ -31,7 +31,6 @@ import com.android.apachat.model.Message;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -64,9 +63,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         btnSend = (ImageButton) findViewById(R.id.btnSend);
         btnSend.setOnClickListener(this);
 
-        String base64AvatarUser = SharedPreferenceHelper.getInstance(this).getUserInfo().avatar;
-        if (!base64AvatarUser.equals(StaticConfig.STR_DEFAULT_BASE64)) {
-            byte[] decodedString = Base64.decode(base64AvatarUser, Base64.DEFAULT);
+        String base64AvataUser = SharedPreferenceHelper.getInstance(this).getUserInfo().avata;
+        if (!base64AvataUser.equals(StaticConfig.STR_DEFAULT_BASE64)) {
+            byte[] decodedString = Base64.decode(base64AvataUser, Base64.DEFAULT);
             bitmapAvataUser = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         } else {
             bitmapAvataUser = null;
@@ -74,13 +73,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         editWriteMessage = (EditText) findViewById(R.id.editWriteMessage);
         if (idFriend != null && nameFriend != null) {
-            Objects.requireNonNull(getSupportActionBar()).setTitle(nameFriend);
+            getSupportActionBar().setTitle(nameFriend);
             linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recyclerChat = (RecyclerView) findViewById(R.id.recyclerChat);
             recyclerChat.setLayoutManager(linearLayoutManager);
             adapter = new ListMessageAdapter(this, conversation, bitmapAvataFriend, bitmapAvataUser);
-            FirebaseDatabase.getInstance().getReference().child("message/" + roomId)
-                    .addChildEventListener(new ChildEventListener() {
+            FirebaseDatabase.getInstance().getReference().child("message/" + roomId).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     if (dataSnapshot.getValue() != null) {

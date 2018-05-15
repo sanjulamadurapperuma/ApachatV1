@@ -14,10 +14,10 @@ public class ListFriend {
         listFriend = new ArrayList<>();
     }
 
-    public String getAvatarById(String id){
+    public String getAvataById(String id){
         for(Friend friend: listFriend){
             if(id.equals(friend.id)){
-                return friend.avatar;
+                return friend.avata;
             }
         }
         return "";
