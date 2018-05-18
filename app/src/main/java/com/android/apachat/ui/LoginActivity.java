@@ -32,6 +32,7 @@ import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,19 +62,19 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        editTextUsername = (EditText) findViewById(R.id.et_username);
-        editTextPassword = (EditText) findViewById(R.id.et_password);
+        fab = findViewById(R.id.fab);
+        editTextUsername = findViewById(R.id.et_username);
+        editTextPassword = findViewById(R.id.et_password);
         firstTimeAccess = true;
         initFirebase();
     }
 
 
     /**
-     * Khởi tạo các thành phần cần thiết cho việc quản lý đăng nhập
+     * Initialize components needed for log management
      */
     private void initFirebase() {
-        //Khoi tao thanh phan de dang nhap, dang ky
+        //Initialize the component to login and register
         mAuth = FirebaseAuth.getInstance();
         authUtils = new AuthUtils();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -95,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
-        //Khoi tao dialog waiting khi dang nhap
+        //Initialize dialog for waiting
         waitingDialog = new LovelyProgressDialog(this).setCancelable(false);
     }
 
@@ -161,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Dinh nghia cac ham tien ich cho quas trinhf dang nhap, dang ky,...
+     * Utility function for registration
      */
     class AuthUtils {
         /**
@@ -334,7 +335,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         /**
-         * Luu thong tin user info cho nguoi dung dang nhap
+         * Save user info for login
          */
         void saveUserInfo() {
             FirebaseDatabase.getInstance().getReference().child("user/" + StaticConfig.UID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -343,6 +344,7 @@ public class LoginActivity extends AppCompatActivity {
                     waitingDialog.dismiss();
                     HashMap hashUser = (HashMap) dataSnapshot.getValue();
                     User userInfo = new User();
+                    assert hashUser != null;
                     userInfo.name = (String) hashUser.get("name");
                     userInfo.email = (String) hashUser.get("email");
                     userInfo.avata = (String) hashUser.get("avata");
@@ -357,12 +359,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         /**
-         * Khoi tao thong tin mac dinh cho tai khoan moi
+         * Initialization of default information for new accounts
          */
         void initNewUserInfo() {
             User newUser = new User();
             newUser.email = user.getEmail();
-            newUser.name = user.getEmail().substring(0, user.getEmail().indexOf("@"));
+            newUser.name = Objects.requireNonNull(user.getEmail()).substring(0, user.getEmail().indexOf("@"));
             newUser.avata = StaticConfig.STR_DEFAULT_BASE64;
             FirebaseDatabase.getInstance().getReference().child("user/" + user.getUid()).setValue(newUser);
         }
