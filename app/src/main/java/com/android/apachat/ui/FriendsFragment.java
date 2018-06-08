@@ -205,19 +205,19 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
                     .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
                         @Override
                         public void onTextInputConfirmed(String text) {
-                            //Tim id user id
+                            //Find user ID
                             findIDEmail(text);
-                            //Check xem da ton tai ban ghi friend chua
-                            //Ghi them 1 ban ghi
+                            //Check if the friend record exists
+                            //Add a record
                         }
                     })
                     .show();
         }
 
         /**
-         * TIm id cua email tren server
+         * Find the id of the email on the server
          *
-         * @param email
+         * @param email Find the email id
          */
         private void findIDEmail(String email) {
             dialogWait.setCancelable(false)
@@ -267,7 +267,7 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
         }
 
         /**
-         * Lay danh sach friend cua một UID
+         * Get the friend list of the UID
          */
         private void checkBeforAddFriend(final String idFriend, Friend userInfo) {
             dialogWait.setCancelable(false)
@@ -276,7 +276,7 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
                     .setTopColorRes(R.color.colorPrimary)
                     .show();
 
-            //Check xem da ton tai id trong danh sach id chua
+            //Check if ID exists in the ID List
             if (listFriendID.contains(idFriend)) {
                 dialogWait.dismiss();
                 new LovelyInfoDialog(context)
@@ -360,7 +360,7 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     /**
-     * Lay danh sach ban be tren server
+     * Get a List of friends on the server
      */
     private void getListFriendUId() {
         FirebaseDatabase.getInstance().getReference().child("friend/" + StaticConfig.UID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -386,7 +386,7 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     /**
-     * Truy cap bang user lay thong tin id nguoi dung
+     * User accesses the other UID information
      */
     private void getAllFriendInfo(final int index) {
         if (index == listFriendID.size()) {
@@ -486,7 +486,7 @@ class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 });
 
-        //nhấn giữ để xóa bạn
+        //Hold to delete chat thread
         ((View) ((ItemFriendViewHolder) holder).txtName.getParent().getParent().getParent())
                 .setOnLongClickListener(new View.OnLongClickListener() {
                     @Override

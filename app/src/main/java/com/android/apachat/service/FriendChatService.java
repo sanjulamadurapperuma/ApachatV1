@@ -78,7 +78,7 @@ public class FriendChatService extends Service {
         updateOnline.start();
 
         if (listFriend.getListFriend().size() > 0 || listGroup.size() > 0) {
-            //Dang ky lang nghe cac room tai day
+            //Subscribe to the rooms here
             for (final Friend friend : listFriend.getListFriend()) {
                 if (!listKey.contains(friend.idRoom)) {
                     mapQuery.put(friend.idRoom, FirebaseDatabase.getInstance().getReference().child("message/" + friend.idRoom).limitToLast(1));
@@ -181,7 +181,7 @@ public class FriendChatService extends Service {
         Intent activityIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, activityIntent, PendingIntent.FLAG_ONE_SHOT);
         NotificationCompat.Builder notificationBuilder = new
-                NotificationCompat.Builder(this)
+                NotificationCompat.Builder(this, "AlertMe")
                 .setLargeIcon(icon)
                 .setContentTitle(name)
                 .setContentText(content)

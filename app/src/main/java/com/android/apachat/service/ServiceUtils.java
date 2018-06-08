@@ -29,6 +29,7 @@ public class ServiceUtils {
     public static boolean isServiceFriendChatRunning(Context context) {
         Class<?> serviceClass = FriendChatService.class;
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        assert manager != null;
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 return true;
@@ -146,6 +147,7 @@ public class ServiceUtils {
     public static boolean isNetworkConnected(Context context) {
         try{
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            assert cm != null;
             return cm.getActiveNetworkInfo() != null;
         }catch (Exception e){
             return true;
